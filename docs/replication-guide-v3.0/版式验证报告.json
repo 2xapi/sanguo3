@@ -1,0 +1,12 @@
+{
+  "date": "2026-11-12",
+  "pages": 45,
+  "sourceSha256": "d944a7d9cd68006e08b3a9b84c50970cbae63f4d303fe9ad95505ab3ff3470cd",
+  "docxSha256": "48d4390af7bd5a493c8189adf294215a1f896a8d052264d1830cd3cc32d14a77",
+  "pdfSha256": "96a813cdad15376073d19dbced83800ea492ba19e8b7486ea5836c6b9d540b59",
+  "font": "Heiti SC",
+  "titleBorders": 0,
+  "pageImagesReviewed": 45,
+  "boundsIssues": [],
+  "notes": "DOCX rendered with bundled LibreOffice; all page layouts inspected, Chinese glyphs and critical tables checked. Not original-game validation."
+}

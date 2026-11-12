@@ -1,0 +1,78 @@
+name: Restore a published verified runtime
+# TEMPLATE ONLY. Shared concurrency excludes concurrent production deploys.
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Exact verified-BUILD_ID release tag
+        type: string
+        required: true
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages-production
+  cancel-in-progress: false
+env:
+  VITE_BASE_PATH: /sanguo3/
+  PRODUCTION_BASE_URL: ${{ vars.PRODUCTION_BASE_URL }}
+  GH_TOKEN: ${{ github.token }}
+jobs:
+  restore:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ vars.PRODUCTION_BASE_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm install --global npm@11.9.0
+      - run: npm ci
+      - run: python3 -m venv .venv
+      - run: .venv/bin/python -m pip install -r tools/requirements.txt
+      - run: npx --no-install playwright install --with-deps chromium
+      - name: Restore exact full release after checksum and tag identity verification
+        id: previous
+        env:
+          REQUESTED_TAG: ${{ inputs.tag }}
+        run: .venv/bin/python tools/prepare_rollback.py --tag "$REQUESTED_TAG" --output rollback-source --expected-base "$VITE_BASE_PATH"
+      - name: Verify save compatibility before changing the public version
+        env:
+          ROLLBACK_DIST: rollback-source/dist
+          BASE_URL: ${{ env.PRODUCTION_BASE_URL }}
+        run: npm run test:rollback-compatibility
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        with:
+          name: rollback-pages
+          path: rollback-source/dist
+          include-hidden-files: true
+      - uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
+        with:
+          artifact_name: rollback-pages
+      - name: Verify same production origin now serves requested build and playable path
+        env:
+          BASE_URL: ${{ env.PRODUCTION_BASE_URL }}
+          EXPECTED_BUILD_ID: ${{ steps.previous.outputs.build_id }}
+          EXPECTED_COMMIT: ${{ steps.previous.outputs.commit }}
+          LIVE_REPORT_DIR: acceptance/rollback
+          LIVE_LEDGER_MODE: isolated
+        run: npm run test:live
+      - name: Record recovered build as current known good
+        env:
+          VERIFIED_TAG: ${{ steps.previous.outputs.tag }}
+        run: gh release edit "$VERIFIED_TAG" --latest
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: always()
+        with:
+          name: manual-rollback-report
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            acceptance/rollback
+            rollback-source/identity.json

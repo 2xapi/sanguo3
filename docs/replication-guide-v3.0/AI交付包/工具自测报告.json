@@ -1,0 +1,380 @@
+{
+  "scope": "Artificial fixtures for tools only; no game/original/site validated",
+  "total": 62,
+  "passed": 62,
+  "failed": 0,
+  "cases": [
+    {
+      "case": "初始结构可检查",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "未取证模板禁止发布",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "发布前无自循环",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "部署后无最终汇总自循环",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "旧线上期望和实测同时改旧仍拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "同路径其他域名拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实际网页仍为旧版本拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实际网页提交不符拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实际网页域名不符拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "线上HTTP拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "线上子路径变化拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "候选身份不得全体退回旧版",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "候选站点不能跟随错误报告改写",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "旧构建报告拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "旧提交报告拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "不存在案例引用拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "删除实施任务仅留汇总拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "删除实际屏幕拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "删除冻结案例拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "同时删范围及台账仍受外部摘要阻断",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实施任务不能改成部署后跳过",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实施任务未完成拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "缺原始案例执行拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "断言结果缺失拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "重复案例执行拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "跳过案例不能算通过",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "执行器非零退出拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实际数值错误即使写passed仍拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "手改案例预期拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "像素被改仍写零差异拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "截图尺寸不符拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "原版参考被改拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "未解决事实缺口拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "任务依赖循环拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "上线报告不能提前放过全部交付",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "发布收据必须为当前候选",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "候选产物与报告身份不符拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "构建后文件变化拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "高位深截图不得静默量化",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "像素自比较拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "原始报告摘要不符拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "实际输出摘要不符拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "缺外部构建身份拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "重复JSON键拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "人工运行包静态检查",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "子路径根引用错误拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "外部运行依赖拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "改后缀ROM仍拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "未入清单运行文件拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "产物缺失拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "独立PNG比较人工同图通过",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "独立PNG比较检出人工差异",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "独立PNG比较拒绝高位深",
+      "passed": true,
+      "expectedExitCode": 2,
+      "actualExitCode": 2
+    },
+    {
+      "case": "完整产物可归档并自检",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "发布归档不能覆写",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "不重新构建即可恢复完整同版本",
+      "passed": true,
+      "expectedExitCode": 0,
+      "actualExitCode": 0
+    },
+    {
+      "case": "恢复不能覆盖已有目录",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "错误回滚版本拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "归档传输损坏拒绝",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "恶意归档拒绝-traversal",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "恶意归档拒绝-symlink",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    },
+    {
+      "case": "恶意归档拒绝-duplicate",
+      "passed": true,
+      "expectedExitCode": 1,
+      "actualExitCode": 1
+    }
+  ]
+}

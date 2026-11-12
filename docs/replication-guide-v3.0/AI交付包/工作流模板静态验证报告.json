@@ -1,0 +1,36 @@
+{
+  "scope": "YAML/script/static checks and local transport simulation only. Not GitHub execution.",
+  "total": 7,
+  "passed": 7,
+  "failed": 0,
+  "cases": [
+    {
+      "case": "pages YAML、锁定Actions与全部内嵌脚本语法",
+      "passed": true
+    },
+    {
+      "case": "rollback YAML、锁定Actions与全部内嵌脚本语法",
+      "passed": true
+    },
+    {
+      "case": "CI传递位于构建和完整门禁之前",
+      "passed": true
+    },
+    {
+      "case": "24组任务无DIST到OPS-PREP的循环前置",
+      "passed": true
+    },
+    {
+      "case": "真实执行传递脚本能核对原字节并拒绝损坏",
+      "passed": true
+    },
+    {
+      "case": "恢复分支、独立报告与失败候选退出码存在",
+      "passed": true
+    },
+    {
+      "case": "文档包未启用生产工作流",
+      "passed": true
+    }
+  ]
+}

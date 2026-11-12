@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "status": "draft",
+  "baselineId": "MD-SG3-TC-BASELINE-001",
+  "target": {
+    "title": "三國志Ⅲ",
+    "platform": "Mega Drive / Genesis",
+    "language": "zh-Hant",
+    "identityStatus": "user-specified",
+    "baselineId": "MD-SG3-TC-BASELINE-001",
+    "referenceIds": []
+  },
+  "display": {
+    "logicalWidth": null,
+    "logicalHeight": null,
+    "primaryMode": null,
+    "referenceIds": []
+  },
+  "inventory": {
+    "status": "not_started",
+    "revision": 1,
+    "referenceIds": [],
+    "scopeChangeReason": null
+  },
+  "strictTarget": {
+    "placeholderAllowed": false,
+    "pixelDifferenceAllowed": 0,
+    "unknownAllowed": false
+  },
+  "requiredCoverage": [
+    "bootstrap",
+    "build",
+    "ui",
+    "dynamic",
+    "interaction",
+    "rules",
+    "data",
+    "ai",
+    "random",
+    "audio",
+    "save",
+    "compatibility",
+    "dist",
+    "live"
+  ],
+  "deployment": {
+    "baseUrl": null,
+    "basePath": "/sanguo3/"
+  },
+  "references": {},
+  "screens": {},
+  "features": {},
+  "cases": {},
+  "tasks": {
+    "DOC-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [],
+      "acceptance": [
+        "检查真实文件",
+        "未知项逐条记录"
+      ],
+      "caseIds": []
+    },
+    "REF-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "DOC-001"
+      ],
+      "acceptance": [
+        "同版本同状态",
+        "原件哈希与来源可定位"
+      ],
+      "caseIds": []
+    },
+    "INV-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "REF-001"
+      ],
+      "acceptance": [
+        "清单来自原版遍历",
+        "未观察项显式标未知"
+      ],
+      "caseIds": []
+    },
+    "ENG-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "DOC-001"
+      ],
+      "acceptance": [
+        "实际构建",
+        "有意义测试执行且通过"
+      ],
+      "caseIds": []
+    },
+    "TOOL-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "ENG-001"
+      ],
+      "acceptance": [
+        "尺寸错误被拒绝",
+        "非零像素被检出",
+        "原图不被覆盖"
+      ],
+      "caseIds": []
+    },
+    "UI-BASE-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "REF-001",
+        "ENG-001",
+        "TOOL-001"
+      ],
+      "acceptance": [
+        "独立资源来源",
+        "组件级精确比较"
+      ],
+      "caseIds": []
+    },
+    "UI-CITY-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "UI-BASE-001"
+      ],
+      "acceptance": [
+        "逐元素对应",
+        "精确参考差异为零"
+      ],
+      "caseIds": []
+    },
+    "INPUT-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "UI-CITY-001",
+        "REF-001"
+      ],
+      "acceptance": [
+        "边覆盖",
+        "返回与焦点正确",
+        "异常输入不重复命令"
+      ],
+      "caseIds": []
+    },
+    "RULE-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "REF-001",
+        "ENG-001"
+      ],
+      "acceptance": [
+        "独立前后案例",
+        "边界与失败分支"
+      ],
+      "caseIds": []
+    },
+    "TIME-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "RULE-001"
+      ],
+      "acceptance": [
+        "顺序有证据",
+        "不中断与恢复等价"
+      ],
+      "caseIds": []
+    },
+    "SAVE-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "RULE-001"
+      ],
+      "acceptance": [
+        "旧档保护",
+        "修订冲突",
+        "坏档拒绝",
+        "恢复等价"
+      ],
+      "caseIds": []
+    },
+    "CORE-INTEGRATION": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "INPUT-001",
+        "TIME-001",
+        "SAVE-001"
+      ],
+      "acceptance": [
+        "输入到事件完整路径",
+        "不中断与恢复等价"
+      ],
+      "caseIds": []
+    },
+    "BATTLE-MIN": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "CORE-INTEGRATION",
+        "REF-001"
+      ],
+      "acceptance": [
+        "不是孤立演示",
+        "战前战后与取消边界"
+      ],
+      "caseIds": []
+    },
+    "VERTICAL": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "BATTLE-MIN"
+      ],
+      "acceptance": [
+        "相同初态完整执行",
+        "图像焦点状态事件全部断言"
+      ],
+      "caseIds": []
+    },
+    "DIST-001": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "VERTICAL"
+      ],
+      "acceptance": [
+        "没有未提交依赖",
+        "根和子路径资源可用",
+        "静态工具与浏览器产物检查"
+      ],
+      "caseIds": []
+    },
+    "OPS-PREP": {
+      "phase": "bootstrap",
+      "required": true,
+      "dependsOn": [
+        "ENG-001"
+      ],
+      "acceptance": [
+        "当前提交的CI跨任务传递真实随机校验物并复核摘要",
+        "正式来源、资料权限、归档与恢复前提已配置；不要求游戏门禁先通过"
+      ],
+      "caseIds": []
+    },
+    "STRATEGY-ALL": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "INV-001",
+        "CORE-INTEGRATION",
+        "VERTICAL"
+      ],
+      "acceptance": [
+        "台账无缺项",
+        "多月与结束路径"
+      ],
+      "caseIds": []
+    },
+    "BATTLE-ALL": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "STRATEGY-ALL",
+        "BATTLE-MIN"
+      ],
+      "acceptance": [
+        "全部登记战斗机制",
+        "状态回写与恢复"
+      ],
+      "caseIds": []
+    },
+    "CONTENT-AI-ALL": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "BATTLE-ALL"
+      ],
+      "acceptance": [
+        "覆盖全量登记内容",
+        "验证层次不夸大"
+      ],
+      "caseIds": []
+    },
+    "AUDIO-ALL": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "REF-001",
+        "ENG-001",
+        "INV-001"
+      ],
+      "acceptance": [
+        "对应场景与事件",
+        "循环与中断恢复",
+        "正式音频来源"
+      ],
+      "caseIds": []
+    },
+    "UI-ALL": {
+      "phase": "implementation",
+      "required": true,
+      "dependsOn": [
+        "INV-001",
+        "INPUT-001",
+        "UI-BASE-001"
+      ],
+      "acceptance": [
+        "逐状态和动态对应",
+        "无未解释像素差异"
+      ],
+      "caseIds": []
+    },
+    "RELEASE-EXACT": {
+      "phase": "release_gate",
+      "required": true,
+      "dependsOn": [
+        "CONTENT-AI-ALL",
+        "UI-ALL",
+        "AUDIO-ALL",
+        "SAVE-001",
+        "DIST-001",
+        "OPS-PREP"
+      ],
+      "acceptance": [
+        "无未知与占位",
+        "全部必测真实通过",
+        "报告不超证据"
+      ],
+      "caseIds": []
+    },
+    "OPS-LIVE": {
+      "phase": "post_deploy",
+      "required": true,
+      "dependsOn": [
+        "RELEASE-EXACT",
+        "OPS-PREP"
+      ],
+      "acceptance": [
+        "实际版本匹配",
+        "代表玩法与恢复通过",
+        "真实live报告"
+      ],
+      "caseIds": []
+    },
+    "FINAL-DELIVERY": {
+      "phase": "final_gate",
+      "required": true,
+      "dependsOn": [
+        "OPS-LIVE"
+      ],
+      "acceptance": [
+        "delivered门禁通过",
+        "站点源码产物证据存档恢复齐全"
+      ],
+      "caseIds": []
+    }
+  },
+  "notes": "原版普查和规格未完成，禁止将此模板直接标成frozen。范围确认后由负责人独立审查scope.json，将其SHA256存入CI变量TRUSTED_SCOPE_SHA256。"
+}

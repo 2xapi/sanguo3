@@ -1,0 +1,63 @@
+{
+  "scope": "Mock GitHub responses; real local archive IO. No actual GitHub deployment performed.",
+  "total": 11,
+  "passed": 11,
+  "failed": 0,
+  "cases": [
+    {
+      "case": "已发布可用归档可真实恢复",
+      "passed": true,
+      "actualExitCode": 0
+    },
+    {
+      "case": "首次无发布显式记录无回滚",
+      "passed": true,
+      "actualExitCode": 0
+    },
+    {
+      "case": "未许可首次缺失不能跳过",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "权限错误不能伪装首次",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "显式标签不存在不能伪装首次",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "草稿不能充当可用旧版",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "非运行发布不能充当旧版",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "归档必须与tag源码提交一致",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "归档必须与tag构建ID一致",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "指定标签与API结果不符拒绝",
+      "passed": true,
+      "actualExitCode": 1
+    },
+    {
+      "case": "传输归档损坏拒绝",
+      "passed": true,
+      "actualExitCode": 1
+    }
+  ]
+}
