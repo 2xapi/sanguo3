@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "title": "三國志Ⅲ",
+    "platform": "Mega Drive / Genesis",
+    "language": "zh-Hant",
+    "identityStatus": "user-specified",
+    "baselineId": "MD-SG3-TC-BASELINE-001"
+  },
+  "display": {
+    "logicalWidth": null,
+    "logicalHeight": null,
+    "primaryMode": null,
+    "referenceIds": []
+  },
+  "inventory": {
+    "status": "not_started",
+    "revision": 1,
+    "referenceIds": [],
+    "scopeChangeReason": null
+  },
+  "requiredCoverage": [
+    "build",
+    "ui",
+    "dynamic",
+    "interaction",
+    "rules",
+    "data",
+    "ai",
+    "random",
+    "audio",
+    "save",
+    "compatibility"
+  ],
+  "strictTarget": {
+    "placeholderAllowed": false,
+    "pixelDifferenceAllowed": 0,
+    "unknownAllowed": false
+  },
+  "notes": "这些是待填写台账；未提供原版截图、全量清单或已运行游戏报告。"
+}
