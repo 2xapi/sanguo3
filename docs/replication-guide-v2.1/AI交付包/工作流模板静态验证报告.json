@@ -1,0 +1,8 @@
+{
+  "scope": "YAML and artificial identity fixtures only; no cloud execution or deployment",
+  "actionUsesChecked": 10,
+  "officialPinnedActions": 7,
+  "identityMatchFixture": "passed",
+  "identityMismatchRejection": "passed",
+  "executedInGitHubActions": false
+}

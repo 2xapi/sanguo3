@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "title": "三國志Ⅲ",
+    "platform": "Mega Drive / Genesis",
+    "language": "zh-Hant",
+    "identityStatus": "user-specified",
+    "baselineId": "MD-SG3-TC-BASELINE-001"
+  },
+  "display": {
+    "logicalWidth": null,
+    "logicalHeight": null,
+    "primaryMode": null,
+    "referenceIds": []
+  },
+  "inventory": {
+    "status": "not_started",
+    "revision": 1,
+    "referenceIds": [],
+    "scopeChangeReason": null
+  },
+  "requiredCoverage": [
+    "build",
+    "ui",
+    "dynamic",
+    "interaction",
+    "rules",
+    "data",
+    "ai",
+    "random",
+    "audio",
+    "save",
+    "compatibility",
+    "dist",
+    "live"
+  ],
+  "strictTarget": {
+    "placeholderAllowed": false,
+    "pixelDifferenceAllowed": 0,
+    "unknownAllowed": false
+  },
+  "notes": "v2.1区分发布前exact-release与部署后delivered；记录只是待填写模板，不是已完成游戏或已上线证明。",
+  "candidate": {
+    "commit": null,
+    "buildId": null,
+    "basePath": "/sanguo3/"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "scope": "Artificial fixtures for tools only; no game or website tested",
+  "total": 18,
+  "passed": 18,
+  "failed": 0,
+  "cases": [
+    {
+      "case": "真实初始模板结构通过",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "passed": true
+    },
+    {
+      "case": "真实初始模板不能发布",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "发布前门禁不依赖自身先done",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "passed": true
+    },
+    {
+      "case": "旧构建报告不能借用",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "旧提交报告不能借用",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "尚未部署不能通过最终交付",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "真正实施任务不能借分期跳过",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "部署后门禁不依赖最终汇总先done",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "passed": true
+    },
+    {
+      "case": "线上版本不匹配被拒绝",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "完整人工子路径包通过静态检查",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "passed": true
+    },
+    {
+      "case": "构建后资源变更被摘要发现",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "未列出文件阻断发布",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "根路径硬编码在子路径被拒绝",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "外部运行脚本不冒充完整静态包",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "参考文档目录不得混入站点",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "改后缀的MD程序头也被阻断",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "空版本不能发布",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "没有dist不能声明产物完成",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    }
+  ]
+}

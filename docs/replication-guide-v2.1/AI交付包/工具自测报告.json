@@ -1,0 +1,103 @@
+{
+  "scope": "只测试交付包工具；不涉及原版游戏或网页游戏验收",
+  "fixtures": "临时人工生成数据与12×10像素PNG，运行结束删除",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "cases": [
+    {
+      "case": "模板结构可用",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "passed": true
+    },
+    {
+      "case": "空资料不能严格发布",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "悬空任务依赖被拒绝",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "任务循环依赖被拒绝",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "无报告不能标done",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "错误字段类型不被误当证据",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "零测试报告不能严格通过",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "产物路径越界被拒绝",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "相同独立PNG零差异",
+      "expectedExitCode": 0,
+      "actualExitCode": 0,
+      "passed": true
+    },
+    {
+      "case": "单RGB像素差异被检出",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "单alpha像素差异被检出",
+      "expectedExitCode": 1,
+      "actualExitCode": 1,
+      "passed": true
+    },
+    {
+      "case": "尺寸不同不自动缩放",
+      "expectedExitCode": 2,
+      "actualExitCode": 2,
+      "passed": true
+    },
+    {
+      "case": "禁止自比较",
+      "expectedExitCode": 2,
+      "actualExitCode": 2,
+      "passed": true
+    },
+    {
+      "case": "禁止覆盖原输出",
+      "expectedExitCode": 2,
+      "actualExitCode": 2,
+      "passed": true
+    },
+    {
+      "case": "有损格式不伪装PNG",
+      "expectedExitCode": 2,
+      "actualExitCode": 2,
+      "passed": true
+    }
+  ],
+  "environment": {
+    "python": "3.12.14",
+    "Pillow": "13.0.0"
+  }
+}

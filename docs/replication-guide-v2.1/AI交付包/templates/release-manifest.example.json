@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "commit": null,
+  "buildId": null,
+  "builtAt": null,
+  "basePath": "/sanguo3/",
+  "entry": "index.html",
+  "rulesVersion": null,
+  "dataVersion": null,
+  "assetsVersion": null,
+  "toolchain": {
+    "node": null,
+    "npm": null
+  },
+  "files": {}
+}

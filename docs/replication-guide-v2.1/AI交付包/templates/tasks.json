@@ -1,0 +1,438 @@
+[
+  {
+    "id": "DOC-001",
+    "title": "核实环境、仓库、基准与已有资料",
+    "status": "todo",
+    "priority": 1,
+    "required": true,
+    "dependsOn": [],
+    "acceptance": [
+      "检查真实文件",
+      "未知项逐条记录"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "REF-001",
+    "title": "采集并确认版本、城市截图与菜单录像",
+    "status": "todo",
+    "priority": 2,
+    "required": true,
+    "dependsOn": [
+      "DOC-001"
+    ],
+    "acceptance": [
+      "同版本同状态",
+      "原件哈希与来源可定位"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "INV-001",
+    "title": "普查全部原版屏幕、功能与数据范围",
+    "status": "todo",
+    "priority": 3,
+    "required": true,
+    "dependsOn": [
+      "REF-001"
+    ],
+    "acceptance": [
+      "清单来自原版遍历",
+      "未观察项显式标未知"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "ENG-001",
+    "title": "锁定工程、构建、类型与规则测试",
+    "status": "todo",
+    "priority": 4,
+    "required": true,
+    "dependsOn": [
+      "DOC-001"
+    ],
+    "acceptance": [
+      "实际构建",
+      "有意义测试执行且通过"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "TOOL-001",
+    "title": "实现测量、截图与像素比较工具",
+    "status": "todo",
+    "priority": 5,
+    "required": true,
+    "dependsOn": [
+      "ENG-001"
+    ],
+    "acceptance": [
+      "尺寸错误被拒绝",
+      "非零像素被检出",
+      "原图不被覆盖"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "UI-BASE-001",
+    "title": "核对字库、图块、窗口与游标",
+    "status": "todo",
+    "priority": 6,
+    "required": true,
+    "dependsOn": [
+      "REF-001",
+      "ENG-001",
+      "TOOL-001"
+    ],
+    "acceptance": [
+      "独立资源来源",
+      "组件级精确比较"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "UI-CITY-001",
+    "title": "完成固定城市静态标准场景",
+    "status": "todo",
+    "priority": 7,
+    "required": true,
+    "dependsOn": [
+      "UI-BASE-001"
+    ],
+    "acceptance": [
+      "逐元素对应",
+      "精确参考差异为零"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "INPUT-001",
+    "title": "完成菜单状态图及完整输入路径",
+    "status": "todo",
+    "priority": 8,
+    "required": true,
+    "dependsOn": [
+      "UI-CITY-001",
+      "REF-001"
+    ],
+    "acceptance": [
+      "边覆盖",
+      "返回与焦点正确",
+      "异常输入不重复命令"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "RULE-001",
+    "title": "完成首条已确认玩法与决策表",
+    "status": "todo",
+    "priority": 9,
+    "required": true,
+    "dependsOn": [
+      "REF-001",
+      "ENG-001"
+    ],
+    "acceptance": [
+      "独立前后案例",
+      "边界与失败分支"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "TIME-001",
+    "title": "完成已确认月推进与阶段恢复",
+    "status": "todo",
+    "priority": 10,
+    "required": true,
+    "dependsOn": [
+      "RULE-001"
+    ],
+    "acceptance": [
+      "顺序有证据",
+      "不中断与恢复等价"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "SAVE-001",
+    "title": "完成原子存档、导出导入与冲突保护",
+    "status": "todo",
+    "priority": 11,
+    "required": true,
+    "dependsOn": [
+      "RULE-001"
+    ],
+    "acceptance": [
+      "旧档保护",
+      "修订冲突",
+      "坏档拒绝",
+      "恢复等价"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "CORE-INTEGRATION",
+    "title": "贯通城市指令、月份与存档核心",
+    "status": "todo",
+    "priority": 12,
+    "required": true,
+    "dependsOn": [
+      "INPUT-001",
+      "TIME-001",
+      "SAVE-001"
+    ],
+    "acceptance": [
+      "输入到事件完整路径",
+      "不中断与恢复等价"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "BATTLE-MIN",
+    "title": "首个有证据战斗与战略回写",
+    "status": "todo",
+    "priority": 13,
+    "required": true,
+    "dependsOn": [
+      "CORE-INTEGRATION",
+      "REF-001"
+    ],
+    "acceptance": [
+      "不是孤立演示",
+      "战前战后与取消边界"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "VERTICAL",
+    "title": "开局到战后存读档的纵向闭环",
+    "status": "todo",
+    "priority": 14,
+    "required": true,
+    "dependsOn": [
+      "BATTLE-MIN"
+    ],
+    "acceptance": [
+      "相同初态完整执行",
+      "图像焦点状态事件全部断言"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "DIST-001",
+    "title": "干净构建、发布清单与双基址运行",
+    "status": "todo",
+    "priority": 15,
+    "required": true,
+    "dependsOn": [
+      "VERTICAL"
+    ],
+    "acceptance": [
+      "没有未提交依赖",
+      "根和子路径资源可用",
+      "静态工具与浏览器产物检查"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "OPS-PREP",
+    "title": "配置并验证CI与站点发布前提",
+    "status": "todo",
+    "priority": 16,
+    "required": true,
+    "dependsOn": [
+      "DIST-001",
+      "ENG-001"
+    ],
+    "acceptance": [
+      "Pages来源与权限实际可用",
+      "原版证据在CI可访问",
+      "报告与产物跨job传递"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "STRATEGY-ALL",
+    "title": "逐项完成全部战略、数据与事件",
+    "status": "todo",
+    "priority": 17,
+    "required": true,
+    "dependsOn": [
+      "INV-001",
+      "CORE-INTEGRATION",
+      "VERTICAL"
+    ],
+    "acceptance": [
+      "台账无缺项",
+      "多月与结束路径"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "BATTLE-ALL",
+    "title": "逐项完成战斗到战略回写",
+    "status": "todo",
+    "priority": 18,
+    "required": true,
+    "dependsOn": [
+      "STRATEGY-ALL",
+      "BATTLE-MIN"
+    ],
+    "acceptance": [
+      "全部登记战斗机制",
+      "状态回写与恢复"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "CONTENT-AI-ALL",
+    "title": "完成剧本、事件、AI与随机对照",
+    "status": "todo",
+    "priority": 19,
+    "required": true,
+    "dependsOn": [
+      "BATTLE-ALL"
+    ],
+    "acceptance": [
+      "覆盖全量登记内容",
+      "验证层次不夸大"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "AUDIO-ALL",
+    "title": "完成音乐、音效与触发循环对照",
+    "status": "todo",
+    "priority": 20,
+    "required": true,
+    "dependsOn": [
+      "REF-001",
+      "ENG-001",
+      "INV-001"
+    ],
+    "acceptance": [
+      "对应场景与事件",
+      "循环与中断恢复",
+      "正式音频来源"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "UI-ALL",
+    "title": "完成所有屏幕、字形、动态与交互",
+    "status": "todo",
+    "priority": 21,
+    "required": true,
+    "dependsOn": [
+      "INV-001",
+      "INPUT-001",
+      "UI-BASE-001"
+    ],
+    "acceptance": [
+      "逐状态和动态对应",
+      "无未解释像素差异"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "RELEASE-EXACT",
+    "title": "执行严格全量验收与发布恢复",
+    "status": "todo",
+    "priority": 22,
+    "required": true,
+    "dependsOn": [
+      "CONTENT-AI-ALL",
+      "UI-ALL",
+      "AUDIO-ALL",
+      "SAVE-001",
+      "DIST-001",
+      "OPS-PREP"
+    ],
+    "acceptance": [
+      "无未知与占位",
+      "全部必测真实通过",
+      "报告不超证据"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "OPS-LIVE",
+    "title": "部署同一产物并验证真实HTTPS站点",
+    "status": "todo",
+    "priority": 23,
+    "required": true,
+    "dependsOn": [
+      "RELEASE-EXACT",
+      "OPS-PREP"
+    ],
+    "acceptance": [
+      "实际版本匹配",
+      "代表玩法与恢复通过",
+      "真实live报告"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  },
+  {
+    "id": "FINAL-DELIVERY",
+    "title": "归档完整交付与恢复记录",
+    "status": "todo",
+    "priority": 24,
+    "required": true,
+    "dependsOn": [
+      "OPS-LIVE"
+    ],
+    "acceptance": [
+      "delivered门禁通过",
+      "站点源码产物证据存档恢复齐全"
+    ],
+    "reportIds": [],
+    "outputPaths": [],
+    "blockerIds": []
+  }
+]

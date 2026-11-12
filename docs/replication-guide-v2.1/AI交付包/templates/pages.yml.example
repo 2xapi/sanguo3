@@ -1,0 +1,135 @@
+name: Verify and deploy verified game
+
+# TEMPLATE ONLY: install as .github/workflows/pages.yml after the application,
+# reference access, scripts, tools, and Pages settings actually exist.
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', 'README.md']
+  pull_request:
+    branches: [main]
+    paths-ignore: ['docs/**', 'README.md']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  VITE_BASE_PATH: /sanguo3/
+  SANGUO_PYTHON: .venv/bin/python
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    outputs:
+      build_id: ${{ steps.identity.outputs.build_id }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - name: Pin npm
+        run: npm install --global npm@11.9.0
+      - run: npm ci
+      - name: Install declared Python test dependencies
+        run: python3 -m venv .venv
+      - run: .venv/bin/python -m pip install -r tools/requirements.txt
+      - name: Prepare authorized reference inputs without resetting ledgers
+        run: npm run prepare:references
+      - run: npx --no-install playwright install --with-deps chromium
+      # This command must run, in order, source checks, build, test:dist,
+      # verify_dist.py, then exact-release. The exact gate must not run before
+      # the current build's dist report exists. Do not rebuild after the gate.
+      - name: Build and verify the exact complete-game release candidate
+        run: npm run verify:release
+      - name: Record and verify build identity
+        id: identity
+        shell: python
+        run: |
+          import json, os, pathlib, re
+          manifest = json.loads(pathlib.Path('dist/release-manifest.json').read_text())
+          candidate = json.loads(pathlib.Path('reference/ledgers/project.json').read_text())['candidate']
+          assert manifest['commit'] == os.environ['GITHUB_SHA'], 'Wrong source commit'
+          for field in ['commit', 'buildId', 'basePath']:
+              assert manifest[field] == candidate[field], 'Artifact and evidence identity differ: ' + field
+          build_id = manifest['buildId']
+          assert re.fullmatch(r'[A-Za-z0-9._-]+', build_id), 'Invalid build identity'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('build_id=' + build_id + '\n')
+      - name: Archive only the verified runtime directory
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: dist
+      - name: Carry build reports, state, and same dist to the deploy job
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: delivery-state
+          if-no-files-found: error
+          retention-days: 7
+          path: |
+            reference/ledgers
+            acceptance
+            dist
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm install --global npm@11.9.0
+      - run: npm ci
+      - run: python3 -m venv .venv
+      - run: .venv/bin/python -m pip install -r tools/requirements.txt
+      - run: npx --no-install playwright install --with-deps chromium
+      - name: Restore this build's reports and ledger rather than stale checkout state
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: delivery-state
+          path: .
+      - name: Reacquire authorized originals without resetting restored build state
+        run: npm run prepare:references
+      - name: Confirm Pages configuration
+        uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - name: Deploy the previously verified artifact
+        id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
+      - name: Verify the real HTTPS site and save live report
+        env:
+          BASE_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_BUILD_ID: ${{ needs.build.outputs.build_id }}
+        run: npm run test:live
+      # test:live must verify the version and flow, create its real live report,
+      # complete OPS-LIVE, and synchronize the ledger before delivered runs.
+      - name: Verify complete delivery evidence
+        run: python3 tools/validate_handoff.py --data reference/ledgers --artifact-root . --mode delivered
+      - name: Preserve actual online reports, including failure evidence
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: online-delivery-report
+          if-no-files-found: error
+          retention-days: 7
+          path: |
+            reference/ledgers
+            acceptance

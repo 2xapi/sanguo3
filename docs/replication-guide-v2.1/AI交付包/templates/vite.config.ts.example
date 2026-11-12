@@ -1,0 +1,14 @@
+// TEMPLATE ONLY: copy to the actual application after selecting and installing Vite.
+import { defineConfig } from 'vite';
+
+const base = process.env.VITE_BASE_PATH ?? '/';
+if (!/^\/(?:[A-Za-z0-9._-]+\/)*$/.test(base) || base.split('/').some(p => p === '.' || p === '..')) {
+  throw new Error('VITE_BASE_PATH must be a normalized absolute directory URL path');
+}
+
+export default defineConfig({
+  base,
+  build: { outDir: 'dist', emptyOutDir: true },
+  server: { host: '0.0.0.0', port: 5173, strictPort: true },
+  preview: { host: '0.0.0.0', port: 4173, strictPort: true },
+});
