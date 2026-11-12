@@ -1,0 +1,10 @@
+[
+  {
+    "id": "REF-ROM-ORIGINAL-001",
+    "kind": "original-data",
+    "evidenceStatus": "confirmed",
+    "path": "reference/private/原版.md",
+    "sha256": "bd1bf6e238c9517244f9fd4bb15bf1baca5c0e0560614ccbb7234f43f5010960",
+    "notes": "仅确认用户提供的样本字节身份；原文件须自行置于私有路径，不随交付包发布，不推定发行来源。"
+  }
+]

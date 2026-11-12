@@ -1,0 +1,11 @@
+{
+  "scope": "Read-only audit of supplied sample plus temporary negative test fixtures; no gameplay acceptance.",
+  "total": 3,
+  "passed": 3,
+  "failed": 0,
+  "cases": [
+    "所提供样本的已核对字段通过且报告99项战场冲突",
+    "拒绝错误样本摘要",
+    "检出人工篡改的候选字段"
+  ]
+}

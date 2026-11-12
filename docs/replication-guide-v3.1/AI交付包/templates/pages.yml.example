@@ -1,0 +1,230 @@
+name: Verify deploy and recover
+# TEMPLATE ONLY. No workflow is installed/enabled by this document update.
+on:
+  push:
+    branches: [main]
+    paths-ignore: ['docs/**', 'README.md']
+  pull_request:
+    branches: [main]
+    paths-ignore: ['docs/**', 'README.md']
+  workflow_dispatch:
+    inputs:
+      bootstrap_only:
+        type: boolean
+        default: false
+        description: Verify cross-job transport before the game is complete
+permissions:
+  contents: read
+concurrency:
+  # Use exactly this group in the manual rollback workflow too.
+  group: pages-production
+  cancel-in-progress: false
+env:
+  VITE_BASE_PATH: /sanguo3/
+  PRODUCTION_BASE_URL: ${{ vars.PRODUCTION_BASE_URL }}
+  TRUSTED_SCOPE_SHA256: ${{ vars.TRUSTED_SCOPE_SHA256 }}
+  EXPECTED_CANDIDATE_COMMIT: ${{ github.sha }}
+  EXPECTED_CANDIDATE_BUILD_ID: ${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+  SANGUO_PYTHON: .venv/bin/python
+jobs:
+  transport-send:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      digest: ${{ steps.payload.outputs.digest }}
+    steps:
+      - name: Make a real per-run transport payload
+        id: payload
+        shell: python
+        run: |
+          import hashlib, json, os, pathlib, secrets
+          payload = {'commit': os.environ['GITHUB_SHA'], 'runId': os.environ['GITHUB_RUN_ID'], 'attempt': os.environ['GITHUB_RUN_ATTEMPT'], 'nonce': secrets.token_hex(32)}
+          path = pathlib.Path('transport.json')
+          path.write_text(json.dumps(payload))
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write('digest=' + hashlib.sha256(path.read_bytes()).hexdigest() + '\n')
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: transport-payload
+          path: transport.json
+          if-no-files-found: error
+  transport-receive:
+    needs: transport-send
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: transport-payload
+      - name: Verify actual cross-job bytes and run identity
+        env:
+          EXPECTED_PAYLOAD_SHA: ${{ needs.transport-send.outputs.digest }}
+        shell: python
+        run: |
+          import hashlib, json, os, pathlib
+          path = pathlib.Path('transport.json')
+          actual = hashlib.sha256(path.read_bytes()).hexdigest()
+          assert actual == os.environ['EXPECTED_PAYLOAD_SHA']
+          payload = json.loads(path.read_text())
+          assert payload['commit'] == os.environ['GITHUB_SHA']
+          assert payload['runId'] == os.environ['GITHUB_RUN_ID']
+          assert payload['attempt'] == os.environ['GITHUB_RUN_ATTEMPT']
+          pathlib.Path('bootstrap-transport.json').write_text(json.dumps({'passed': True, 'payloadSha256': actual, **payload}))
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: bootstrap-proof
+          path: bootstrap-transport.json
+          if-no-files-found: error
+  build:
+    needs: transport-receive
+    if: github.event_name != 'workflow_dispatch' || !inputs.bootstrap_only
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm install --global npm@11.9.0
+      - run: npm ci
+      - run: python3 -m venv .venv
+      - run: .venv/bin/python -m pip install -r tools/requirements.txt
+      - run: npx --no-install playwright install --with-deps chromium
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: bootstrap-proof
+          path: acceptance/bootstrap
+      - run: npm run prepare:references
+      # Must produce raw current-build case reports, then build ONCE, test dist,
+      # sync implementation statuses from real reports, and run exact-release last.
+      - run: npm run verify:release
+      - name: Complete release aggregation only after the actual gate passed
+        shell: python
+        run: |
+          import json, pathlib
+          receipt = json.loads(pathlib.Path('acceptance/release-gate.json').read_text())
+          assert receipt['result'] == 'passed' and receipt['mode'] == 'exact-release'
+          path = pathlib.Path('reference/ledgers/tasks.json')
+          tasks = json.loads(path.read_text())
+          task = next(t for t in tasks if t['id'] == 'RELEASE-EXACT')
+          task.update(status='done', outputPaths=['acceptance/release-gate.json'])
+          path.write_text(json.dumps(tasks, ensure_ascii=False, indent=2))
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        if: github.event_name != 'pull_request'
+        with:
+          path: dist
+          include-hidden-files: true
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        if: github.event_name != 'pull_request'
+        with:
+          name: delivery-state
+          include-hidden-files: true
+          retention-days: 30
+          if-no-files-found: error
+          path: |
+            reference/ledgers
+            acceptance
+            dist
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    permissions:
+      contents: write # durable release archives, not merely expiring run artifacts
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm install --global npm@11.9.0
+      - run: npm ci
+      - run: python3 -m venv .venv
+      - run: .venv/bin/python -m pip install -r tools/requirements.txt
+      - run: npx --no-install playwright install --with-deps chromium
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333
+        with:
+          name: delivery-state
+          path: .
+      - run: npm run prepare:references
+      - name: Recheck restored candidate before touching production
+        run: .venv/bin/python tools/validate_handoff.py --data reference/ledgers --artifact-root . --mode exact-release
+      - name: Obtain last known good release before deploying
+        id: previous
+        run: .venv/bin/python tools/prepare_rollback.py --output rollback-source --expected-base "$VITE_BASE_PATH" --allow-first-release
+      - name: Prove old build can safely read post-update saves
+        if: steps.previous.outputs.available == 'true'
+        env:
+          ROLLBACK_DIST: rollback-source/dist
+        run: npm run test:rollback-compatibility
+      - name: Archive this exact candidate without rebuilding
+        run: .venv/bin/python tools/release_archive.py pack --dist dist --output release-store/release.tar.gz --expected-base "$VITE_BASE_PATH" --expected-commit "$EXPECTED_CANDIDATE_COMMIT" --expected-build-id "$EXPECTED_CANDIDATE_BUILD_ID"
+      - name: Persist candidate as a draft release before deployment
+        run: gh release create "verified-$EXPECTED_CANDIDATE_BUILD_ID" release-store/release.tar.gz release-store/release.tar.gz.sha256 --target "$EXPECTED_CANDIDATE_COMMIT" --draft --latest=false --title "Candidate $EXPECTED_CANDIDATE_BUILD_ID" --notes "Runtime archive. Not known good until online gate passes."
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d
+      - uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
+        id: deploy
+        continue-on-error: true # route failure to recovery, then explicitly fail the job
+      - name: Check actual production and complete current delivery gate
+        id: live
+        if: steps.deploy.outcome == 'success'
+        continue-on-error: true
+        env:
+          BASE_URL: ${{ steps.deploy.outputs.page_url }}
+          EXPECTED_BUILD_ID: ${{ env.EXPECTED_CANDIDATE_BUILD_ID }}
+          EXPECTED_COMMIT: ${{ env.EXPECTED_CANDIDATE_COMMIT }}
+          LIVE_REPORT_DIR: acceptance/live
+        run: |
+          npm run test:live
+          npm run evidence:sync -- --phase live
+          .venv/bin/python tools/validate_handoff.py --data reference/ledgers --artifact-root . --mode delivered --write-report acceptance/final-gate.json
+      - name: Publish durable known good marker only after delivered passed
+        if: steps.live.outcome == 'success'
+        run: gh release edit "verified-$EXPECTED_CANDIDATE_BUILD_ID" --draft=false --latest --title "Verified $EXPECTED_CANDIDATE_BUILD_ID" --notes "Current-build delivered gate passed. Full runtime archive retained."
+      - name: Upload previous full runtime for recovery
+        if: always() && (steps.deploy.outcome == 'failure' || steps.live.outcome == 'failure') && steps.previous.outputs.available == 'true'
+        uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9
+        with:
+          name: rollback-pages
+          path: rollback-source/dist
+          include-hidden-files: true
+      - name: Restore previous artifact at same production origin
+        id: rollback
+        if: always() && (steps.deploy.outcome == 'failure' || steps.live.outcome == 'failure') && steps.previous.outputs.available == 'true'
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346
+        with:
+          artifact_name: rollback-pages
+      - name: Verify recovered version and representative flow separately
+        if: always() && steps.rollback.outcome == 'success'
+        env:
+          BASE_URL: ${{ env.PRODUCTION_BASE_URL }}
+          EXPECTED_BUILD_ID: ${{ steps.previous.outputs.build_id }}
+          EXPECTED_COMMIT: ${{ steps.previous.outputs.commit }}
+          LIVE_REPORT_DIR: acceptance/rollback
+          LIVE_LEDGER_MODE: isolated
+        run: npm run test:live
+      - name: Retain diagnostics without mixing recovery into candidate acceptance
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: online-delivery-report
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            acceptance
+            reference/ledgers
+            rollback-source/identity.json
+      - name: Failed candidate stays failed even when service recovered
+        if: always() && (steps.deploy.outcome == 'failure' || steps.live.outcome == 'failure')
+        run: |
+          echo 'Candidate failed. Inspect recovery reports; first release has no previous runtime to restore.'
+          exit 1

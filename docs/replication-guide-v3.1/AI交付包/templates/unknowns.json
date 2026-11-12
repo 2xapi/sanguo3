@@ -1,0 +1,92 @@
+[
+  {
+    "id": "UNK-001",
+    "question": "样本官方来源与准确修订、完整简繁字形映射",
+    "affectedScope": "版本对照",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-002",
+    "question": "有效画面、逻辑尺寸、比例与采集方式",
+    "affectedScope": "精确UI",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-003",
+    "question": "平原首屏以外的完整菜单、全部命令路径和输入时序",
+    "affectedScope": "UI与交互",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-004",
+    "question": "正式字库、图块、头像、声音与来源",
+    "affectedScope": "资源",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-005",
+    "question": "首条指令、月结顺序与原始案例",
+    "affectedScope": "玩法",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-006",
+    "question": "完整功能、屏幕、数据范围的普查",
+    "affectedScope": "完整性",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-007",
+    "question": "原版AI、随机与隐藏状态的证据",
+    "affectedScope": "AI与随机",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "补充可追溯资料与可复核的对应结论"
+  },
+  {
+    "id": "UNK-008",
+    "question": "古战场状态二维表索引与状态含义",
+    "affectedScope": "剧本战场数据",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "针对目标原版进行独立实机或运行轨迹复核并保存案例。"
+  },
+  {
+    "id": "UNK-009",
+    "question": "城市字段宽度、缩放、税率等完整运行语义",
+    "affectedScope": "城市数据与显示",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "针对目标原版进行独立实机或运行轨迹复核并保存案例。"
+  },
+  {
+    "id": "UNK-010",
+    "question": "46城真实道路邻接、坐标变换与地形",
+    "affectedScope": "地图和移动",
+    "status": "open",
+    "disposition": "blocks_related_acceptance",
+    "referenceIds": [],
+    "exitCriteria": "针对目标原版进行独立实机或运行轨迹复核并保存案例。"
+  }
+]

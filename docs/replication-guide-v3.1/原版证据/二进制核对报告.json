@@ -1,0 +1,123 @@
+{
+  "baseline": {
+    "sha256": "bd1bf6e238c9517244f9fd4bb15bf1baca5c0e0560614ccbb7234f43f5010960",
+    "bytes": 1572864,
+    "format": "flat big-endian MD BIN",
+    "headerChecksum": "341c",
+    "resetVector": "0x200"
+  },
+  "candidateFiles": {
+    "officers-532.json": "7f9c99a1abedfe526596aad45f7aa04e3155bf7990d7faab9b9ff291de9d40eb",
+    "city-coords.json": "ab9abab7df12dc2e1c71b2c41f968c1b5015fe20ca2a5da396b2b81ed85188c1",
+    "cities-46.json": "5f89f4f3cb2fa22705be1c4d058381a5bb36c7566c23dbefcc2205c5a70ef502",
+    "battlefields-22.json": "185c7650f64a4dbaa04a6be6c7d9f8a1f3fc308492181fa8a9098b4597a5de73",
+    "scenarios/scenario-0.json": "909c332fa5572f443c72006af702254893a1c62bb45b8bb940823da3e4a2523a",
+    "scenarios/scenario-1.json": "b40b060246673138f38c06eb6f391d7ab4681f5f4d8b83f28cd380e222b4e0d7",
+    "scenarios/scenario-2.json": "a336062f819f59747144cb9d969571c10219b06cf844431b411a3e65af115fa1",
+    "scenarios/scenario-3.json": "7bfd3d752fd2a66dce2ec66e602c071b12a84ca8c126d79abaf371db8dca640a",
+    "scenarios/scenario-4.json": "652500e6f93df6f8b66ac49103f9448fdc4c61c3f7eed2cc4324757b4d81c276",
+    "scenarios/scenario-5.json": "69c9964fcea7ee522a7867365b5c1a824270a077003bf4609a3cc0b604d82d3a"
+  },
+  "counts": {
+    "officer_ids": 532,
+    "officer_candidate_values": 5320,
+    "officer_glyph_codes": 532,
+    "city_coord_candidates": 230,
+    "city_second_coord_candidates": 138,
+    "scenario_pointers": 18,
+    "scenario_metadata": 6,
+    "scenario_city_raw_records": 276,
+    "scenario_deployment_values": 15930,
+    "scenario_force_values": 689,
+    "battlefield_candidate_old_stride": 132,
+    "battlefield_per_scenario_old_stride": 132,
+    "header_checksum": 1
+  },
+  "candidateByteMismatches": 0,
+  "byteMismatchExamples": [],
+  "battlefieldIndexConflict": {
+    "slotsCompared": 132,
+    "differingSlots": 99,
+    "examples": [
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 2,
+        "candidateOldStride": 0,
+        "decompiledCodeStride": 255
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 3,
+        "candidateOldStride": 3,
+        "decompiledCodeStride": 255
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 10,
+        "candidateOldStride": 1,
+        "decompiledCodeStride": 255
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 11,
+        "candidateOldStride": 1,
+        "decompiledCodeStride": 14
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 13,
+        "candidateOldStride": 255,
+        "decompiledCodeStride": 10
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 14,
+        "candidateOldStride": 255,
+        "decompiledCodeStride": 16
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 16,
+        "candidateOldStride": 1,
+        "decompiledCodeStride": 255
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 17,
+        "candidateOldStride": 2,
+        "decompiledCodeStride": 6
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 18,
+        "candidateOldStride": 255,
+        "decompiledCodeStride": 6
+      },
+      {
+        "scenarioIndex": 0,
+        "battlefieldIndex": 19,
+        "candidateOldStride": 255,
+        "decompiledCodeStride": 6
+      }
+    ],
+    "candidateFormula": "0x800e4 + scenario*22 + battlefield",
+    "decompiledFormula": "0x800e4 + battlefield*6 + scenario",
+    "source": "docs/rea-ghidra/full-decomp/f_0001bbd2.c:13-19",
+    "resolution": "Do not import as original behavior until traced against the running game."
+  },
+  "widthExample": {
+    "scenarioIndex": 2,
+    "cityIndex": 18,
+    "rawOffset": "0x7dab4",
+    "rawU16": 690,
+    "multipliedBy100": 69000,
+    "storageObservation": "city loader writes 32-bit result; field meaning/display requires independent trace"
+  },
+  "releaseReady": false,
+  "limitations": [
+    "Checks selected bytes only; field meanings and complete gameplay are not certified.",
+    "City province, terrain, tier and neighbors are human-authored candidates.",
+    "The six scenario months and titles are not validated by metadata byte equality.",
+    "The battlefield indexing conflict and unscaled screenshots require further research."
+  ]
+}

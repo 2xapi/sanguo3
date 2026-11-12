@@ -1,0 +1,13 @@
+checkId,phase,requirement,expected,actual,evidencePath,status
+DEP-001,pre-build,Clean source and locked tools,Exact commit and versions,,,not_run
+DEP-002,pre-build,Original fidelity gate,All required original cases passed,,,not_run
+DEP-003,dist,Release manifest,Every runtime file listed and hashed,,,not_run
+DEP-004,dist,Root and project base paths,Real game and dynamic assets work,,,not_run
+DEP-005,dist,Vertical game flow,Start to battle result and save recovery,,,not_run
+DEP-006,deploy,Pages settings and access,GitHub Actions source configured,,,not_run
+DEP-007,live,Build identity,Manifest and running build match,,,not_run
+DEP-008,live,HTTPS and assets,No blocked or missing runtime assets,,,not_run
+DEP-009,live,Representative gameplay,Assert images focus state and events,,,not_run
+DEP-010,live,Persistence,Same-origin save reload and export work,,,not_run
+DEP-011,recovery,Rollback,Old bundle and save strategy verified,,,not_run
+DEP-012,final,Delivered gate,Real reports and required tasks complete,,,not_run

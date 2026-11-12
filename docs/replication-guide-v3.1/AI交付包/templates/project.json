@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 2,
+  "target": {
+    "title": "三國志Ⅲ",
+    "platform": "Mega Drive / Genesis",
+    "language": "zh",
+    "identityStatus": "confirmed",
+    "baselineId": "MD-SG3-ORIGINAL-BD1BF6E2",
+    "referenceIds": [
+      "REF-ROM-ORIGINAL-001"
+    ],
+    "observedScript": "mixed",
+    "scriptPolicy": "preserve-original-mixed-glyphs",
+    "binarySha256": "bd1bf6e238c9517244f9fd4bb15bf1baca5c0e0560614ccbb7234f43f5010960"
+  },
+  "display": {
+    "logicalWidth": null,
+    "logicalHeight": null,
+    "primaryMode": null,
+    "referenceIds": []
+  },
+  "inventory": {
+    "status": "not_started",
+    "revision": 1,
+    "referenceIds": [],
+    "scopeChangeReason": null
+  },
+  "requiredCoverage": [
+    "bootstrap",
+    "build",
+    "ui",
+    "dynamic",
+    "interaction",
+    "rules",
+    "data",
+    "ai",
+    "random",
+    "audio",
+    "save",
+    "compatibility",
+    "dist",
+    "live"
+  ],
+  "strictTarget": {
+    "placeholderAllowed": false,
+    "pixelDifferenceAllowed": 0,
+    "unknownAllowed": false
+  },
+  "notes": "v3冻结范围与案例期望；严格门禁需外部scope摘要、当前commit/buildId和真实产物。初始资料未采齐，不得发布。",
+  "candidate": {
+    "commit": null,
+    "buildId": null,
+    "basePath": "/sanguo3/",
+    "baseUrl": null,
+    "manifestPath": "dist/release-manifest.json"
+  }
+}

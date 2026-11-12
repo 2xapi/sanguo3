@@ -1,0 +1,32 @@
+{
+  "reportId": "FORMAT-ONLY-REPORT",
+  "commit": "REPLACE_WITH_FULL_CURRENT_COMMIT",
+  "buildId": "REPLACE_WITH_CURRENT_BUILD_ID",
+  "runner": "REPLACE_WITH_ACTUAL_RUNNER",
+  "command": [
+    "REPLACE_WITH_ACTUAL_COMMAND"
+  ],
+  "exitCode": 0,
+  "artifacts": [
+    {
+      "path": "acceptance/actual-observation.json",
+      "sha256": "REPLACE_WITH_ACTUAL_SHA256"
+    }
+  ],
+  "results": [
+    {
+      "caseId": "FORMAT-ONLY-RULE",
+      "status": "passed",
+      "assertions": [
+        {
+          "id": "RESOURCE_AFTER",
+          "status": "passed",
+          "actualFrom": {
+            "path": "acceptance/actual-observation.json",
+            "pointer": "/resourceAfter"
+          }
+        }
+      ]
+    }
+  ]
+}

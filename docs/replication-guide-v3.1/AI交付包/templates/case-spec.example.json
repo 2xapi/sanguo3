@@ -1,0 +1,14 @@
+{
+  "caseId": "FORMAT-ONLY-RULE",
+  "category": "rules",
+  "referenceIds": [
+    "REPLACE_WITH_CONFIRMED_ORIGINAL_ID"
+  ],
+  "assertions": [
+    {
+      "id": "RESOURCE_AFTER",
+      "op": "equals",
+      "expected": "REPLACE_FROM_INDEPENDENT_ORIGINAL_OBSERVATION"
+    }
+  ]
+}

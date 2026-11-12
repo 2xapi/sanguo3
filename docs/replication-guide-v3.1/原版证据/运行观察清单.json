@@ -1,0 +1,143 @@
+{
+  "baselineSha256": "bd1bf6e238c9517244f9fd4bb15bf1baca5c0e0560614ccbb7234f43f5010960",
+  "date": "2026-11-12",
+  "environment": "隔离本地服务、Playwright/Chromium、EmulatorJS SegaMD；截图为浏览器显示画布，并非未经缩放原像素。",
+  "privateCaptureRoot": "output/sanguo3-guide-repair/work/reference-observation-v31",
+  "cases": [
+    {
+      "id": "07-start-menu",
+      "localPrivatePath": "work/reference-observation-v31/07-start-menu.png",
+      "sha256": "791368c09adf2f777df04a03a1a669a4df042ed0ae47cc1ae76a1c4ff814ca83",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "启动菜单和简体字形",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "08-scenario-select",
+      "localPrivatePath": "work/reference-observation-v31/08-scenario-select.png",
+      "sha256": "2fa516baa19135a16d57d06f8062a13ace1d14f6068ea25e2f60a299c09e56f8",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "六个剧本选择年份",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "10-player-count",
+      "localPrivatePath": "work/reference-observation-v31/10-player-count.png",
+      "sha256": "9061266082595adcbc065766d653f6a1f1a6024f69799224380e331691969c9f",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "人数选择与188年12月",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "16-difficulty-prompt",
+      "localPrivatePath": "work/reference-observation-v31/16-difficulty-prompt.png",
+      "sha256": "fc0f4168262816f1620ca29fd404ef3b64f6f79f7cedccf41b671134cb51eb2c",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "设置页面传统字形",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "35-first-start",
+      "localPrivatePath": "work/reference-observation-v31/35-first-start.png",
+      "sha256": "9fea6cc16f09060fa0a3bfdb8999d0b68967c2a30bd06f030108b26270787ad0",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "开始后189年1月董卓回合",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "36-after-ai",
+      "localPrivatePath": "work/reference-observation-v31/36-after-ai.png",
+      "sha256": "a5b2004eeb541f502aff80097613b004e6233c7df3f61cb81487c5b0599aa773",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "刘备平原城市主菜单",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "38-military-menu",
+      "localPrivatePath": "work/reference-observation-v31/38-military-menu.png",
+      "sha256": "c3e203e45b113cd5a7e71b9d52665dc80bb850f1162a6d6d8e67dd9b9850e48b",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "军事菜单九项",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "40-formation-selected",
+      "localPrivatePath": "work/reference-observation-v31/40-formation-selected.png",
+      "sha256": "1862727763b0b76c85d033ab2a432dd6eb11532b9ca5a87b28d7c08b718d91d2",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "军事菜单第八项編成",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "41-formation-dialog",
+      "localPrivatePath": "work/reference-observation-v31/41-formation-dialog.png",
+      "sha256": "f100fbcb0a114ec56ac982cc524b42550865959901f8e9e3d75cee6f7d9a6574",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "編成武将选择",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    },
+    {
+      "id": "42-after-cancel",
+      "localPrivatePath": "work/reference-observation-v31/42-after-cancel.png",
+      "sha256": "a5b2004eeb541f502aff80097613b004e6233c7df3f61cb81487c5b0599aa773",
+      "browserOutputPixels": [
+        960,
+        720
+      ],
+      "observation": "取消后城市主菜单",
+      "captureQuality": "scaled-browser-observation-not-pixel-baseline"
+    }
+  ],
+  "formationCancelScaledScreensEqual": true,
+  "ramObservationSha256": "638b24d329a8f65dbbb67b09c1befa0876bdaa6b747cb515584a9f5b231178e6",
+  "ramObservation": "同一平原状态检查8组君主/城主关联，采样人口3700、金2300、米50000、商450。基址随运行变化；字段语义限于此状态。",
+  "staticEvidence": [
+    {
+      "temporaryName": "sango3-rea-original-evidence.json",
+      "sha256": "6245eabe37708cf9afe764b96a17e6da210754ae4aa8bf549bd93aaf3fea41b0",
+      "note": "本地临时REA输出，不包含在交付包内"
+    },
+    {
+      "temporaryName": "sango3-rea-cityloader-evidence.json",
+      "sha256": "3fd2298330bedbee6bbb650d8c1409678befec105a721cd66e9d3f7f58609c47",
+      "note": "本地临时REA输出，不包含在交付包内"
+    },
+    {
+      "temporaryName": "sango3-rea-multiply-evidence.json",
+      "sha256": "bc530c3235da147917c3bed59b67748e3fd578d468965014f6b350e163cf6c53",
+      "note": "本地临时REA输出，不包含在交付包内"
+    }
+  ],
+  "limitations": [
+    "本次仅观察第1剧本刘备一条路径和局部界面，不证明其他剧本或完整玩法。",
+    "私有图片及原版文件不在仓库、文档或交付包中。",
+    "不得将浏览器缩放图作为原版原生像素验收参考。"
+  ]
+}
